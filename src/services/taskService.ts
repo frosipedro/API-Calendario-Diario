@@ -1,57 +1,50 @@
-import db from '../database'
-import { Task } from '../models/task'
+import { AppDataSource } from '../database/index'
+import { Task } from '../models/Task'
+import { User } from '../models/User'
 
-export const getTasks = (userId: number): Promise<Task[]> => {
-  return new Promise((resolve, reject) => {
-    db.all('SELECT * FROM tasks WHERE userId = ?', [userId], (err, rows) => {
-      if (err) reject(err)
-      resolve(rows as Task[])
-    })
-  })
+export const getTasks = async (userId: string): Promise<Task[]> => {
+  const taskRepository = AppDataSource.getRepository(Task)
+  return await taskRepository.find({ where: { user: { id: userId } } })
 }
 
-export const createTask = (
-  userId: number,
-  task: Omit<Task, 'id'>
+export const createTask = async (
+  userId: string,
+  taskData: Omit<Task, 'id' | 'user'>
 ): Promise<Task> => {
-  return new Promise((resolve, reject) => {
-    const { title, description, status } = task
-    db.run(
-      'INSERT INTO tasks (title, description, status, userId) VALUES (?, ?, ?, ?)',
-      [title, description, status, userId],
-      function (err) {
-        if (err) reject(err)
-        resolve({ id: this.lastID, ...task, userId })
-      }
-    )
+  const taskRepository = AppDataSource.getRepository(Task)
+  const userRepository = AppDataSource.getRepository(User)
+
+  const user = await userRepository.findOneBy({ id: userId })
+  if (!user) {
+    throw new Error('User not found')
+  }
+
+  const task = taskRepository.create({
+    ...taskData,
+    user,
   })
+  console.log(task)
+
+  return await taskRepository.save(task)
 }
 
-export const updateTask = (
+export const updateTask = async (
   taskId: number,
-  task: Partial<Task>
+  taskData: Partial<Omit<Task, 'id' | 'user'>>
 ): Promise<Task> => {
-  return new Promise((resolve, reject) => {
-    const fields = Object.keys(task)
-      .map((field) => `${field} = ?`)
-      .join(', ')
-    const values = Object.values(task)
-    db.run(
-      `UPDATE tasks SET ${fields} WHERE id = ?`,
-      [...values, taskId],
-      function (err) {
-        if (err) reject(err)
-        resolve({ id: taskId, ...task } as Task)
-      }
-    )
-  })
+  const taskRepository = AppDataSource.getRepository(Task)
+
+  const task = await taskRepository.findOneBy({ id: taskId })
+  if (!task) {
+    throw new Error('Task not found')
+  }
+
+  Object.assign(task, taskData)
+
+  return await taskRepository.save(task)
 }
 
-export const deleteTask = (taskId: number): Promise<void> => {
-  return new Promise((resolve, reject) => {
-    db.run('DELETE FROM tasks WHERE id = ?', [taskId], function (err) {
-      if (err) reject(err)
-      resolve()
-    })
-  })
+export const deleteTask = async (taskId: number): Promise<void> => {
+  const taskRepository = AppDataSource.getRepository(Task)
+  await taskRepository.delete({ id: taskId })
 }

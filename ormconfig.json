@@ -1,0 +1,10 @@
+{
+  "type": "sqlite",
+  "database": "your_database",
+  "synchronize": true,
+  "logging": true,
+  "entities": ["src/models/*.ts"],
+  "cli": {
+    "entitiesDir": "src/models"
+  }
+}

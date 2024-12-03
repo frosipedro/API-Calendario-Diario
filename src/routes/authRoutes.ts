@@ -1,8 +1,8 @@
 import { Router } from 'express'
 import * as authService from '../services/authService'
 
-const router = Router()
+const authRouter = Router()
 
-router.post('/login', authService.login)
+authRouter.post('/login', authService.login)
 
-export default router
+export default authRouter

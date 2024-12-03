@@ -2,12 +2,12 @@ import { Router } from 'express'
 import * as taskController from '../controllers/taskController'
 import { authenticateToken } from '../middlewares/authMiddleware'
 
-const router = Router()
+const taskRouter = Router()
 
-router.use(authenticateToken)
-router.get('/tasks', taskController.getTasks)
-router.post('/task', taskController.createTask)
-router.put('/task/:id', taskController.updateTask)
-router.delete('/task/:id', taskController.deleteTask)
+taskRouter.use(authenticateToken)
+taskRouter.get('/tasks/:userId', taskController.getTasks)
+taskRouter.post('/task/:userId', taskController.createTask)
+taskRouter.put('/task/:userId/:taskId', taskController.updateTask)
+taskRouter.delete('/task/:userId/:taskId', taskController.deleteTask)
 
-export default router
+export default taskRouter

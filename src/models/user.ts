@@ -1,20 +1,21 @@
 // models/user.ts
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm'
-
-// Add this at the top
-import 'reflect-metadata'
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm'
+import { Task } from './Task'
 
 @Entity()
 export class User {
   @PrimaryGeneratedColumn('uuid')
-  id: string
+  id!: string
 
   @Column({ unique: true })
-  username: string
+  username!: string
 
   @Column({ unique: true })
-  email: string
+  email!: string
 
   @Column()
-  passwordHash: string
+  passwordHash!: string
+
+  @OneToMany(() => Task, (task) => task.user)
+  tasks!: Task[]
 }
