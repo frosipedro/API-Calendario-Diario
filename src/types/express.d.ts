@@ -5,5 +5,6 @@ declare module 'express' {
     user?: {
       id: number
     }
+    userId?: string
   }
 }

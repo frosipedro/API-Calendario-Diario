@@ -3,10 +3,7 @@ import * as taskService from '../services/taskService'
 
 export const getTasks = async (req: Request, res: Response): Promise<any> => {
   try {
-    if (!req.user) {
-      return res.status(401).json({ message: 'Unauthorized' })
-    }
-    const userId = req.params.userId
+    const userId = req.userId as string
     const tasks = await taskService.getTasks(userId)
     res.status(200).json(tasks)
   } catch (error) {
