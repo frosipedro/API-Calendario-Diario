@@ -10,14 +10,14 @@ export class Task {
   @Column()
   title!: string
 
+  @Column()
+  datetime!: Date
+
   @Column({ nullable: true })
   description!: string
 
   @Column({ default: false })
   status!: boolean
-
-  @Column()
-  date!: Date
 
   @ManyToOne(() => User, (user) => user.tasks)
   user!: User
