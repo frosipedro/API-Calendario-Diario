@@ -16,7 +16,7 @@ export const createTask = async (req: Request, res: Response): Promise<any> => {
     if (!req.user) {
       return res.status(401).json({ message: 'Unauthorized' })
     }
-    const userId = req.params.userId
+    const userId = req.userId as string
     const taskData = req.body
     const newTask = await taskService.createTask(userId, taskData)
     res.status(201).json(newTask)

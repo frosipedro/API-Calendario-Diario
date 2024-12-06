@@ -7,8 +7,8 @@ const taskRouter = Router()
 
 taskRouter.use(authenticateToken)
 taskRouter.get('/tasks', authMiddlewareGET, taskController.getTasks)
-taskRouter.post('/task/:userId', taskController.createTask)
-taskRouter.put('/task/:userId/:taskId', taskController.updateTask)
-taskRouter.delete('/task/:userId/:taskId', taskController.deleteTask)
+taskRouter.post('/task', authMiddlewareGET, taskController.createTask)
+taskRouter.put('/task/:taskId', taskController.updateTask)
+taskRouter.delete('/task/:taskId', taskController.deleteTask)
 
 export default taskRouter

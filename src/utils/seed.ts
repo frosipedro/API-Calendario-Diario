@@ -29,11 +29,77 @@ AppDataSource.initialize()
         email: 'ana.santos@example.com',
         password: 'senha101112',
       },
+    ]
+    const predefinedTasks = [
       {
-        id: '5',
-        username: 'Pedro Lima',
-        email: 'pedro.lima@example.com',
-        password: 'senha131415',
+        title: 'Tarefa do João',
+        description: 'Primeira tarefa',
+        date: new Date('2024-03-20'),
+        status: false,
+        user: { id: '1' },
+      },
+      {
+        title: 'Relatório Mensal',
+        description: '',
+        date: new Date('2024-03-25'),
+        status: false,
+        user: { id: '2' },
+      },
+      {
+        title: 'Reunião de Equipe',
+        description: 'Agendar reunião semanal',
+        date: new Date('2024-03-22'),
+        status: true,
+        user: { id: '2' },
+      },
+      {
+        title: 'Apresentação',
+        description: 'Preparar slides',
+        date: new Date('2024-03-28'),
+        status: false,
+        user: { id: '2' },
+      },
+      {
+        title: 'Review de Código',
+        description: '',
+        date: new Date('2024-03-21'),
+        status: true,
+        user: { id: '3' },
+      },
+      {
+        title: 'Deploy',
+        description: 'Fazer deploy da versão 2.0',
+        date: new Date('2024-03-23'),
+        status: false,
+        user: { id: '3' },
+      },
+      {
+        title: 'Backlog',
+        description: 'Organizar backlog do próximo sprint',
+        date: new Date('2024-03-24'),
+        status: false,
+        user: { id: '4' },
+      },
+      {
+        title: 'Documentação',
+        description: '',
+        date: new Date('2024-03-26'),
+        status: true,
+        user: { id: '4' },
+      },
+      {
+        title: 'Bug fixing',
+        description: 'Corrigir bug #456',
+        date: new Date('2024-03-27'),
+        status: false,
+        user: { id: '4' },
+      },
+      {
+        title: 'Planning',
+        description: 'Planejamento Q2',
+        date: new Date('2024-03-29'),
+        status: false,
+        user: { id: '4' },
       },
     ]
 
@@ -57,6 +123,21 @@ AppDataSource.initialize()
             })
 
             await userRepository.save(user)
+          }
+
+          const existingTasks = await AppDataSource.getRepository(
+            'Task'
+          ).count()
+
+          if (existingTasks === 0) {
+            console.log('Starting to seed tasks...')
+
+            for (const taskData of predefinedTasks) {
+              const task = await AppDataSource.getRepository('Task').create(
+                taskData
+              )
+              await AppDataSource.getRepository('Task').save(task)
+            }
           }
 
           console.log('Seed completed successfully!')

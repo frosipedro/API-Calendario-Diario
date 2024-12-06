@@ -17,10 +17,7 @@ export class Task {
   status!: boolean
 
   @Column()
-  dateBegin!: Date
-
-  @Column()
-  dateEnd!: Date
+  date!: Date
 
   @ManyToOne(() => User, (user) => user.tasks)
   user!: User
