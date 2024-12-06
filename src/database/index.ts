@@ -5,7 +5,7 @@ export const AppDataSource = new DataSource({
   type: 'sqlite',
   database: 'data.db',
   synchronize: true,
-  logging: true,
+  logging: false,
   entities: [__dirname + '/../models/*.ts'],
   migrations: [],
   subscribers: [],
