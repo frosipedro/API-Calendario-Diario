@@ -29,27 +29,30 @@ API para gerenciamento de tarefas, desenvolvida em Node.js com TypeScript. Permi
    ```
 
 3. **Configure o arquivo de ambiente**
+   
    Renomeie o arquivo `.env.example` para `.env` e configure as variáveis conforme necessário:
    ```env
-   PORT=4000
-   JWT_SECRET=seu-segredo
+   PORT=
+   JWT_SECRET=
    ```
 
-4. **Execute o seed se desejar adicionar dados ao banco (primeiro rode `npm run dev` para criar o arquivo data.db)**
+   Exemplo de JWT SECRET KEY: a8G$9jK1!mZ#4wX2@H7%y
+
+5. **Execute o seed se desejar adicionar dados ao banco (primeiro rode** `npm run dev` **para criar o arquivo data.db)**
    ```bash
    npm run seed
    # ou
    yarn seed
    ```
 
-5. **Inicie o servidor**
+6. **Inicie o servidor**
    ```bash
    npm run dev
    # ou
    yarn dev
    ```
 
-6. **Acesse a API**
+7. **Acesse a API**
    O servidor estará disponível em `http://localhost:4000`.
 
 ---
@@ -76,8 +79,8 @@ API para gerenciamento de tarefas, desenvolvida em Node.js com TypeScript. Permi
   - **Corpo da requisição:**
     ```json
     {
-      "title": "xxxxxxxx",
-      "description": "xxxxxxxxxxxxxxx",
+      "title": "xxxx",
+      "description": "xxxx",
       "date": "DD-MM-YYYY"
     }
     ```
@@ -88,8 +91,8 @@ API para gerenciamento de tarefas, desenvolvida em Node.js com TypeScript. Permi
   - **Corpo da requisição:**
     ```json
     {
-      "title": "xxxxxxxx",
-      "description": "xxxxxxxxxxxxxxx",
+      "title": "xxxx",
+      "description": "xxxx",
       "date": "DD-MM-YYYY"
     }
     ```
