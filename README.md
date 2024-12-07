@@ -81,7 +81,7 @@ API para gerenciamento de tarefas, desenvolvida em Node.js com TypeScript. Permi
     {
       "title": "xxxx",
       "description": "xxxx",
-      "date": "DD-MM-YYYY"
+      "date": "YYYY-MM-DDThh:mm:ss"
     }
     ```
 
@@ -93,10 +93,10 @@ API para gerenciamento de tarefas, desenvolvida em Node.js com TypeScript. Permi
     {
       "title": "xxxx",
       "description": "xxxx",
-      "date": "DD-MM-YYYY"
+      "date": "YYYY-MM-DDThh:mm:ss" 
     }
     ```
-
+   / year-month-dayThour:min:sec /
 ### **Deletar uma tarefa**
 - **DELETE** `/task/:taskId`
   - **Header:** Authorization: Bearer `<token>`
